@@ -1,0 +1,21 @@
+{
+  "name": "golang-starter",
+  "image": "golang:tip-bullseye",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "golang.go",
+        "streetsidesoftware.code-spell-checker",
+        "ms-azuretools.vscode-docker"
+      ]
+    }
+  },
+  "forwardPorts":[
+  8080,  // Port exposed by http-server-initiator (your dev service)
+  5432,  // Postgres port (if you need direct DB access)
+],
+  "dockerComposeFile": [
+    "./docker-compose.yaml"
+  ],
+  "workspaceFolder": "/workspace",
+}
