@@ -1,21 +1,59 @@
+// .devcontainer/devcontainer.json
 {
   "name": "golang-starter",
-  "image": "golang:tip-bullseye",
+
+  "dockerComposeFile": [
+    "../docker-compose.yaml" // Adjusted path assuming .devcontainer folder
+  ],
+
+  "service": "app",
+
+  "workspaceFolder": "/workspace",
+
+  "forwardPorts": [
+    8080, // Port exposed by your Go dev service (http-server-initiator)
+    5432  // Postgres port (useful for external DB tools, not required for app<>db connection)
+  ],
+
   "customizations": {
     "vscode": {
       "extensions": [
-        "golang.go",
-        "streetsidesoftware.code-spell-checker",
-        "ms-azuretools.vscode-docker"
-      ]
+        "golang.go",                        // Go language support
+        "streetsidesoftware.code-spell-checker", // Spell checking
+        "ms-azuretools.vscode-docker",     // Docker integration
+         "eamodio.gitlens", // Git superpowers
+         "prettiermd.vscode-prettier-md" // Markdown formatting if needed
+      ],
+      // VS Code settings to apply inside the container.
+      "settings": {
+        // Go specific settings
+        "go.formatTool": "gofmt", // Or "goimports", "goreturns"
+        "go.useLanguageServer": true,
+        "[go]": {
+          "editor.formatOnSave": true,
+          "editor.codeActionsOnSave": {
+            "source.organizeImports": true
+          },
+          "editor.defaultFormatter": "golang.go"
+        },
+        // General settings
+        "editor.formatOnSave": true, // Enable format on save generally
+        "files.eol": "\n" // Ensure Unix line endings
+      }
     }
   },
-  "forwardPorts":[
-  8080,  // Port exposed by http-server-initiator (your dev service)
-  5432,  // Postgres port (if you need direct DB access)
-],
-  "dockerComposeFile": [
-    "./docker-compose.yaml"
-  ],
-  "workspaceFolder": "/workspace",
+
+  // Command to run only once after the container is created.
+  // Good for installing dependencies that don't change often.
+  "postCreateCommand": "echo 'Container created, downloading Go modules...' && go mod download",
+
+  // Command to run every time the container starts.
+  // "postStartCommand": "echo 'Container started.'", // Example: could start services or run migrations
+
+  // Run commands after VS Code attaches to the container.
+  // "postAttachCommand": "echo 'VS Code attached.'",
+
+  // Run as a non-root user (if the base image defines a 'vscode' or 'node' user).
+  // Often handled automatically by Gitpod or the base image/features.
+  // "remoteUser": "vscode"
 }
