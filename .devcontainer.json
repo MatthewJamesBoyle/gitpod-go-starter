@@ -7,7 +7,9 @@
   "workspaceFolder": "/workspace",
   "forwardPorts": [
     8080,
-    5432
+    5432,
+    9092,
+    2181
   ],
   "customizations": {
     "vscode": {
