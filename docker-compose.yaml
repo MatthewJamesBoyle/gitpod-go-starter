@@ -40,7 +40,7 @@ services:
       - "5432:5432"
 
   app:
-    image: golang:1.24  # Use a Go image
+    image: golang:1.24-bullseye
     volumes:
       - .:/workspace
     working_dir: /workspace
