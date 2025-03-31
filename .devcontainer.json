@@ -3,7 +3,7 @@
   "name": "golang-starter",
 
   "dockerComposeFile": [
-    "../docker-compose.yaml" // Adjusted path assuming .devcontainer folder
+    "./docker-compose.yaml" // Adjusted path assuming .devcontainer folder
   ],
 
   "service": "app",
