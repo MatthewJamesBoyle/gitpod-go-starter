@@ -1,11 +1,16 @@
+// .devcontainer/devcontainer.json
+
 {
   "name": "golang-starter",
-  "dockerComposeFile": [
-    "./docker-compose.yml"
-  ],
+  // Compose file is referenced relatively, from inside .devcontainer folder
+  "dockerComposeFile": [ "docker-compose.yml" ],
+  // Service name from docker-compose.yml
   "service": "app",
+  // Where VS Code (or Gitpod) opens the project inside the container
   "workspaceFolder": "/workspace",
+  // Ports to forward
   "forwardPorts": [8080, 5432, 9092, 2181],
+
   "customizations": {
     "vscode": {
       "extensions": [
@@ -41,5 +46,7 @@
       }
     }
   },
+
+  // Command after container is up (optional)
   "postCreateCommand": "echo 'Container created, downloading Go modules...' && go mod download"
 }
