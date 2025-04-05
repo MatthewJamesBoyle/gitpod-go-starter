@@ -1,18 +1,14 @@
-# .devcontainer/docker-compose.yml
-
 services:
   zookeeper:
     image: confluentinc/cp-zookeeper:latest
-    # container_name: zookeeper  <-- Remove
-    ports:
-      - "2181:2181"
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
+    ports:
+      - "2181:2181"
 
   kafka:
     image: confluentinc/cp-kafka:latest
-    # container_name: kafka  <-- Remove
     hostname: kafka
     depends_on:
       - zookeeper
@@ -31,7 +27,6 @@ services:
 
   db:
     image: postgres:16
-    # container_name: postgres-db  <-- Remove
     environment:
       POSTGRES_DB: todos
       POSTGRES_PASSWORD: todos
@@ -41,9 +36,9 @@ services:
 
   app:
     image: golang:1.24-bullseye
-    volumes:
-      - .:/workspace
-    working_dir: /workspace
+    depends_on:
+      - db
+      - kafka
     ports:
       - "8080:8080"
     environment:
@@ -52,6 +47,3 @@ services:
       POSTGRES_PASSWORD: todos
       POSTGRES_DB: todos
       KAFKA_BROKER: kafka:9092
-    depends_on:
-      - db
-      - kafka
