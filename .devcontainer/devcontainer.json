@@ -4,15 +4,14 @@
   "service": "app",
   "workspaceFolder": "/workspace",
 
-  // Prevent Dev Containers from overriding the default "golang" image command:
+  // So we don't override the container's default CMD
   "overrideCommand": false,
 
-  "forwardPorts": [
-    8080,
-    5432,
-    9092,
-    2181
-  ],
+  // Sometimes helps if there's a mismatch with user permissions
+  // (If still no luck, try "containerUser": "root")
+  "remoteUser": "root",
+
+  "forwardPorts": [8080, 5432, 9092, 2181],
   "customizations": {
     "vscode": {
       "extensions": [
