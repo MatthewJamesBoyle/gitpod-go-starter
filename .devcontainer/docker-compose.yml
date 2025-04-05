@@ -37,7 +37,7 @@ services:
   app:
     build:
       context: .
-      dockerfile: .devcontainer/Dockerfile
+      dockerfile: Dockerfile
     depends_on:
       - db
       - kafka
