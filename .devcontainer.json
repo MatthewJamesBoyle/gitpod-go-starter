@@ -1,16 +1,11 @@
 {
   "name": "golang-starter",
   "dockerComposeFile": [
-    "/workspaces/gitpod-go-starter/docker-compose.yaml"
+    "./docker-compose.yml"
   ],
   "service": "app",
   "workspaceFolder": "/workspace",
-  "forwardPorts": [
-    8080,
-    5432,
-    9092,
-    2181
-  ],
+  "forwardPorts": [8080, 5432, 9092, 2181],
   "customizations": {
     "vscode": {
       "extensions": [
